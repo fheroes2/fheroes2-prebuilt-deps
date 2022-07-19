@@ -9,7 +9,7 @@ env:
 
 jobs:
   sdl1:
-    name: Package SDL1 dependencies
+    name: Create SDL1 package
     runs-on: windows-2019
     timeout-minutes: 30
     defaults:
@@ -31,7 +31,7 @@ jobs:
     strategy:
       matrix:
         arch: [x86, x64]
-    name: Package SDL2 ${{ matrix.arch }} dependencies
+    name: Create SDL2 ${{ matrix.arch }} package
     runs-on: windows-2019
     timeout-minutes: 120
     defaults:
