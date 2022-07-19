@@ -25,5 +25,5 @@ xcopy /Y /Q "%VCPKG_DIR%\installed\%TRIPLET%\include\zconf.h" "%OUTPUT_DIR%\incl
 xcopy /Y /Q "%VCPKG_DIR%\installed\%TRIPLET%\include\zlib.h"  "%OUTPUT_DIR%\include" || ^
 exit /B 1
 
-xcopy /Y /Q "%VCPKG_DIR%\installed\%TRIPLET%\lib\zlib.lib" "%OUTPUT_DIR%\lib\%PLATFORM%\zlibstatic.lib*" || ^
+xcopy /Y /Q "%VCPKG_DIR%\installed\%TRIPLET%\lib\zlib.lib" "%OUTPUT_DIR%\lib\%PLATFORM%\zlibstatic.lib"* || ^
 exit /B 1
