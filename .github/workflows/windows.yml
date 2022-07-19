@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         arch: [x86, x64]
-    name: Create zlib ${{ matrix.arch }} package for SDL1
+    name: Create zlib ${{ matrix.arch }} package
     runs-on: windows-2019
     timeout-minutes: 30
     defaults:
@@ -24,6 +24,14 @@ jobs:
     - name: Create a package directory
       run: |
         mkdir -p .output/zlib
+    - name: Prepare vcpkg cache
+      uses: actions/cache@v3
+      with:
+        path: ~/AppData/Local/vcpkg/archives
+        key: windows-zlib-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-${{ github.sha }}
+        restore-keys: |
+          windows-zlib-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-
+          windows-zlib-vcpkg-cache-${{ matrix.arch }}-
     - uses: actions/checkout@v3
       with:
         repository: ${{ env.VCPKG_REPO }}
@@ -86,10 +94,10 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/AppData/Local/vcpkg/archives
-        key: windows-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-${{ github.sha }}
+        key: windows-sdl2-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-${{ github.sha }}
         restore-keys: |
-          windows-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-
-          windows-vcpkg-cache-${{ matrix.arch }}-
+          windows-sdl2-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-
+          windows-sdl2-vcpkg-cache-${{ matrix.arch }}-
     - uses: actions/checkout@v3
       with:
         repository: ${{ env.VCPKG_REPO }}
