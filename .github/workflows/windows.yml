@@ -61,6 +61,15 @@ jobs:
     - name: Build dependencies
       run: |
         windows/sdl2.bat .vcpkg ${{ matrix.arch }} .packages/sdl2
+    - name: Get a list of files installed by vcpkg
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        ls -lR vcpkg/installed > vcpkg/installed_files.txt
+    - uses: actions/upload-artifact@v2
+      if: ${{ github.event_name == 'pull_request' }}
+      with:
+        name: sdl2-${{ matrix.arch }}-vcpkg-installed-files
+        path: vcpkg/installed_files.txt
     - uses: actions/upload-artifact@v2
       with:
         name: sdl2-${{ matrix.arch }}
