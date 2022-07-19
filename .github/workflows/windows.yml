@@ -1,0 +1,67 @@
+name: Windows
+
+on:
+  workflow_call:
+
+env:
+  VCPKG_REPO: oleg-derevenetz/vcpkg
+  VCPKG_REF: sdl2-mixer-2.6.1
+
+jobs:
+  sdl1:
+    name: Package SDL1 dependencies
+    runs-on: windows-2019
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create a package directory
+      run: |
+        mkdir -p .packages/sdl1
+    - name: Download dependencies
+      run: |
+        windows/sdl1.bat packages/windows .packages/sdl1
+    - uses: actions/upload-artifact@v2
+      with:
+        name: sdl1
+        path: .packages/sdl1
+  sdl2:
+    strategy:
+      matrix:
+        arch: [x86, x64]
+    name: Package SDL2 ${{ matrix.arch }} dependencies
+    runs-on: windows-2019
+    timeout-minutes: 120
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create a package directory
+      run: |
+        mkdir -p .packages/sdl2
+    - name: Prepare vcpkg cache
+      uses: actions/cache@v3
+      with:
+        path: ~/AppData/Local/vcpkg/archives
+        key: windows-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-${{ github.sha }}
+        restore-keys: |
+          windows-vcpkg-cache-${{ matrix.arch }}-${{ env.VCPKG_REF }}-
+          windows-vcpkg-cache-${{ matrix.arch }}-
+    - uses: actions/checkout@v3
+      with:
+        repository: ${{ env.VCPKG_REPO }}
+        ref: ${{ env.VCPKG_REF }}
+        path: .vcpkg
+    - name: Bootstrap vcpkg
+      run: |
+        .vcpkg/bootstrap-vcpkg.bat
+    - name: Build dependencies
+      run: |
+        windows/sdl2.bat .vcpkg ${{ matrix.arch }} .packages/sdl2
+    - uses: actions/upload-artifact@v2
+      with:
+        name: sdl2-${{ matrix.arch }}
+        path: .packages/sdl2/${{ matrix.arch }}
