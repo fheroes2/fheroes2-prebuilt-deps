@@ -19,14 +19,14 @@ jobs:
     - uses: actions/checkout@v2
     - name: Create a package directory
       run: |
-        mkdir -p .packages/sdl1
+        mkdir -p .output/sdl1
     - name: Download dependencies
       run: |
-        windows/sdl1.bat packages/windows .packages/sdl1
+        windows/sdl1.bat packages/windows .output/sdl1
     - uses: actions/upload-artifact@v2
       with:
         name: sdl1
-        path: .packages/sdl1
+        path: .output/sdl1
   sdl2:
     strategy:
       matrix:
@@ -41,7 +41,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Create a package directory
       run: |
-        mkdir -p .packages/sdl2
+        mkdir -p .output/sdl2
     - name: Prepare vcpkg cache
       uses: actions/cache@v3
       with:
@@ -60,7 +60,7 @@ jobs:
         .vcpkg/bootstrap-vcpkg.bat
     - name: Build dependencies
       run: |
-        windows/sdl2.bat .vcpkg ${{ matrix.arch }} .packages/sdl2
+        windows/sdl2.bat .vcpkg ${{ matrix.arch }} .output/sdl2
     - name: Get a list of files installed by vcpkg
       if: ${{ github.event_name == 'pull_request' }}
       run: |
@@ -73,7 +73,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: sdl2-${{ matrix.arch }}
-        path: .packages/sdl2
+        path: .output/sdl2
   merge:
     name: Merge and upload package
     runs-on: ubuntu-latest
@@ -83,29 +83,29 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: sdl1
-        path: .packages/sdl1
+        path: .output/sdl1
     - uses: actions/download-artifact@v2
       with:
         name: sdl2-x86
-        path: .packages/sdl2
+        path: .output/sdl2
     - uses: actions/download-artifact@v2
       with:
         name: sdl2-x64
-        path: .packages/sdl2
+        path: .output/sdl2
     - uses: actions/upload-artifact@v2
       if: ${{ github.event_name == 'pull_request' }}
       with:
         name: windows
-        path: .packages
+        path: .output
     - name: Create a combined package
       if: ${{ github.event_name == 'push' }}
       run: |
-        cd .packages
+        cd .output
         zip windows.zip sdl1 sdl2
     - uses: ncipollo/release-action@v1
       if: ${{ github.event_name == 'push' }}
       with:
-        artifacts: .packages/windows.zip
+        artifacts: .output/windows.zip
         body: This is a dependency package for the fheroes2 build for Windows
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Dependency package for Windows build
