@@ -30,7 +30,7 @@ call :unpack_archive "%TEMP%\%SDL_FILE%"           "%TEMP%"         && ^
 call :unpack_archive "%TEMP%\%SDL_MIXER_FILE%"     "%TEMP%"         || ^
 exit /B 1
 
-echo Copying files
+echo Copying files...
 
 xcopy /Y /S /Q "%TEMP%\SDL-1.2.15\include"       "%OUTPUT_DIR%\include\SDL" && ^
 xcopy /Y /S /Q "%TEMP%\SDL-1.2.15\lib"           "%OUTPUT_DIR%\lib"         && ^
