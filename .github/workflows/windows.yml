@@ -58,7 +58,10 @@ jobs:
         repository: ${{ env.VCPKG_REPO }}
         ref: ${{ env.VCPKG_REF }}
         path: .vcpkg
-    - name: Download dependencies
+    - name: Bootstrap vcpkg
+      run: |
+        .vcpkg/bootstrap-vcpkg.bat
+    - name: Build dependencies
       run: |
         windows/sdl2.bat .vcpkg ${{ matrix.arch }} .packages/sdl2
     - uses: actions/upload-artifact@v2
