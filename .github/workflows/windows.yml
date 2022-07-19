@@ -4,8 +4,9 @@ on:
   workflow_call:
 
 env:
-  VCPKG_REPO: oleg-derevenetz/vcpkg
-  VCPKG_REF: sdl2-mixer-2.6.1
+  VCPKG_REPO: microsoft/vcpkg
+  # 19.07.2022
+  VCPKG_REF: ebf637bedb9c32bea2176f4488037875c0e935ba
 
 jobs:
   sdl1:
@@ -64,12 +65,12 @@ jobs:
     - name: Get a list of files installed by vcpkg
       if: ${{ github.event_name == 'pull_request' }}
       run: |
-        ls -lR vcpkg/installed > vcpkg/installed_files.txt
+        ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
     - uses: actions/upload-artifact@v2
       if: ${{ github.event_name == 'pull_request' }}
       with:
         name: sdl2-${{ matrix.arch }}-vcpkg-installed-files
-        path: vcpkg/installed_files.txt
+        path: .vcpkg/installed_files.txt
     - uses: actions/upload-artifact@v2
       with:
         name: sdl2-${{ matrix.arch }}
