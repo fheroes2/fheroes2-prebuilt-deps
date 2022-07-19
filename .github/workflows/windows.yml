@@ -9,6 +9,45 @@ env:
   VCPKG_REF: ebf637bedb9c32bea2176f4488037875c0e935ba
 
 jobs:
+  zlib:
+    strategy:
+      matrix:
+        arch: [x86, x64]
+    name: Create zlib ${{ matrix.arch }} package for SDL1
+    runs-on: windows-2019
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create a package directory
+      run: |
+        mkdir -p .output/zlib
+    - uses: actions/checkout@v3
+      with:
+        repository: ${{ env.VCPKG_REPO }}
+        ref: ${{ env.VCPKG_REF }}
+        path: .vcpkg
+    - name: Bootstrap vcpkg
+      run: |
+        .vcpkg/bootstrap-vcpkg.bat
+    - name: Build dependencies
+      run: |
+        windows/zlib.bat .vcpkg ${{ matrix.arch }} .output/zlib
+    - name: Get a list of files installed by vcpkg
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
+    - uses: actions/upload-artifact@v2
+      if: ${{ github.event_name == 'pull_request' }}
+      with:
+        name: zlib-${{ matrix.arch }}-vcpkg-installed-files
+        path: .vcpkg/installed_files.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: zlib-${{ matrix.arch }}
+        path: .output/zlib
   sdl1:
     name: Create SDL1 package
     runs-on: windows-2019
@@ -23,7 +62,7 @@ jobs:
         mkdir -p .output/sdl1
     - name: Download dependencies
       run: |
-        windows/sdl1.bat packages/windows .output/sdl1
+        windows/sdl1.bat .output/sdl1
     - uses: actions/upload-artifact@v2
       with:
         name: sdl1
@@ -79,8 +118,16 @@ jobs:
     name: Merge and upload package
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    needs: [sdl1, sdl2]
+    needs: [zlib, sdl1, sdl2]
     steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: zlib-x86
+        path: .output/sdl1
+    - uses: actions/download-artifact@v2
+      with:
+        name: zlib-x64
+        path: .output/sdl1
     - uses: actions/download-artifact@v2
       with:
         name: sdl1
