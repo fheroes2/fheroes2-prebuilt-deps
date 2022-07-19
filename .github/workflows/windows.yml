@@ -97,3 +97,20 @@ jobs:
       with:
         name: windows
         path: .packages
+    - name: Create a combined package
+      if: ${{ github.event_name == 'push' }}
+      run: |
+        cd .packages
+        zip windows.zip sdl1 sdl2
+    - uses: ncipollo/release-action@v1
+      if: ${{ github.event_name == 'push' }}
+      with:
+        artifacts: .packages/windows.zip
+        body: This is a dependency package for the fheroes2 build for Windows
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: Dependency package for Windows build
+        tag: windows-deps
+        allowUpdates: true
+        artifactErrorsFailBuild: true
+        prerelease: true
+        replacesArtifacts: true
