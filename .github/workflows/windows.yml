@@ -107,9 +107,9 @@ jobs:
       if: ${{ github.event_name == 'push' }}
       with:
         artifacts: .output/windows.zip
-        body: This is a dependency package for the fheroes2 build for Windows
+        body: This is a pre-built dependency package for the fheroes2 build for Windows
         token: ${{ secrets.GITHUB_TOKEN }}
-        name: Dependency package for Windows build
+        name: Pre-built dependency package for Windows build
         tag: windows-deps
         allowUpdates: true
         artifactErrorsFailBuild: true
