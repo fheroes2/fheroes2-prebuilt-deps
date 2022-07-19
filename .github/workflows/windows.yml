@@ -112,5 +112,4 @@ jobs:
         tag: windows-deps
         allowUpdates: true
         artifactErrorsFailBuild: true
-        prerelease: true
         replacesArtifacts: true
