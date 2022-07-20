@@ -28,6 +28,7 @@ jobs:
       with:
         name: sdl1
         path: .output/sdl1
+        if-no-files-found: error
   sdl2:
     strategy:
       matrix:
@@ -75,6 +76,7 @@ jobs:
       with:
         name: sdl2-${{ matrix.arch }}
         path: .output/sdl2
+        if-no-files-found: error
   zlib:
     strategy:
       matrix:
@@ -122,6 +124,7 @@ jobs:
       with:
         name: zlib-${{ matrix.arch }}
         path: .output/zlib
+        if-no-files-found: error
   merge:
     name: Merge and upload package
     runs-on: ubuntu-latest
@@ -153,6 +156,7 @@ jobs:
       with:
         name: windows
         path: .output
+        if-no-files-found: error
     - name: Create a combined package
       if: ${{ github.event_name == 'push' }}
       run: |
