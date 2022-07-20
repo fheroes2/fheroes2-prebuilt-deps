@@ -63,11 +63,11 @@ jobs:
       run: |
         windows/sdl2.bat .vcpkg ${{ matrix.arch }} .output/sdl2
     - name: Get a list of files installed by vcpkg
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       run: |
         ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
     - uses: actions/upload-artifact@v2
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       with:
         name: sdl2-${{ matrix.arch }}-vcpkg-installed-files
         path: .vcpkg/installed_files.txt
@@ -110,11 +110,11 @@ jobs:
       run: |
         windows/zlib.bat .vcpkg ${{ matrix.arch }} .output/zlib
     - name: Get a list of files installed by vcpkg
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       run: |
         ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
     - uses: actions/upload-artifact@v2
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       with:
         name: zlib-${{ matrix.arch }}-vcpkg-installed-files
         path: .vcpkg/installed_files.txt
