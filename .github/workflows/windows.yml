@@ -21,7 +21,7 @@ jobs:
     - name: Create a package directory
       run: |
         mkdir -p .output/sdl1
-    - name: Download dependencies
+    - name: Download binary packages
       run: |
         windows/sdl1.bat .output/sdl1
     - uses: actions/upload-artifact@v2
@@ -59,7 +59,7 @@ jobs:
     - name: Bootstrap vcpkg
       run: |
         .vcpkg/bootstrap-vcpkg.bat
-    - name: Build dependencies
+    - name: Build
       run: |
         windows/sdl2.bat .vcpkg ${{ matrix.arch }} .output/sdl2
     - name: Get a list of files installed by vcpkg
@@ -106,7 +106,7 @@ jobs:
     - name: Bootstrap vcpkg
       run: |
         .vcpkg/bootstrap-vcpkg.bat
-    - name: Build dependencies
+    - name: Build
       run: |
         windows/zlib.bat .vcpkg ${{ matrix.arch }} .output/zlib
     - name: Get a list of files installed by vcpkg
