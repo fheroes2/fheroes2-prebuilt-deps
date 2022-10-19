@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v3
-    - name: Prepare build directory
+    - name: Create and prepare build directory
       run: |
         mkdir -p .android/jni
         cp android/*.mk .android/jni
@@ -35,7 +35,7 @@ jobs:
     - name: Build
       run: |
         "$ANDROID_NDK_HOME/ndk-build" -C .android -j2
-    - name: Prepare SDL2 package
+    - name: Create SDL2 package
       run: |
         mkdir -p .output/jni/SDL2/libs .output/thirdparty/sdl2/src/main
         cp android/SDL2/Android.mk .output/jni/SDL2
@@ -43,7 +43,7 @@ jobs:
         cp -R .android/jni/SDL2/include .output/jni/SDL2
         cp android/SDL2/build.gradle .output/thirdparty/sdl2
         cp -R .android/jni/SDL2/android-project/app/src/main/java .output/thirdparty/sdl2/src/main
-    - name: Prepare SDL2_mixer package
+    - name: Create SDL2_mixer package
       run: |
         mkdir -p .output/jni/SDL2_mixer/libs
         cp android/SDL2_mixer/Android.mk .output/jni/SDL2_mixer
@@ -55,7 +55,7 @@ jobs:
         name: android
         path: .output
         if-no-files-found: error
-    - name: Create combined package
+    - name: Create package archive
       if: ${{ github.event_name == 'push' }}
       run: |
         cd .output

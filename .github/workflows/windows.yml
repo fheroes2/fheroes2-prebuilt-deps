@@ -157,7 +157,7 @@ jobs:
         name: windows
         path: .output
         if-no-files-found: error
-    - name: Create combined package
+    - name: Create package archive
       if: ${{ github.event_name == 'push' }}
       run: |
         cd .output
