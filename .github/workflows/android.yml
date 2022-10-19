@@ -43,7 +43,7 @@ jobs:
         submodules: recursive
     - name: Build
       run: |
-        "$ANDROID_NDK_HOME/ndk-build" -C .android -j2
+        "$ANDROID_NDK_HOME/ndk-build" -C .android
     - name: Create SDL2 package
       run: |
         mkdir -p .output/jni/SDL2/libs .output/thirdparty/sdl2/src/main
