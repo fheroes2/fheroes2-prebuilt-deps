@@ -12,6 +12,6 @@ jobs:
   android:
     name: Android
     uses: ./.github/workflows/android.yml
-  windows:
-    name: Windows
-    uses: ./.github/workflows/windows.yml
+#  windows:
+#    name: Windows
+#    uses: ./.github/workflows/windows.yml
