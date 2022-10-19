@@ -18,7 +18,7 @@ jobs:
         shell: bash
     steps:
     - uses: actions/checkout@v3
-    - name: Create a package directory
+    - name: Create package directory
       run: |
         mkdir -p .output/sdl1_core
     - name: Download binary packages
@@ -41,7 +41,7 @@ jobs:
         shell: bash
     steps:
     - uses: actions/checkout@v3
-    - name: Create a package directory
+    - name: Create package directory
       run: |
         mkdir -p .output/sdl1_deps
     - name: Prepare vcpkg cache
@@ -63,7 +63,7 @@ jobs:
     - name: Build
       run: |
         windows/sdl1_deps.bat .vcpkg ${{ matrix.arch }} .output/sdl1_deps
-    - name: Get a list of files installed by vcpkg
+    - name: Get list of files installed by vcpkg
       if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       run: |
         ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
@@ -89,7 +89,7 @@ jobs:
         shell: bash
     steps:
     - uses: actions/checkout@v3
-    - name: Create a package directory
+    - name: Create package directory
       run: |
         mkdir -p .output/sdl2
     - name: Prepare vcpkg cache
@@ -111,7 +111,7 @@ jobs:
     - name: Build
       run: |
         windows/sdl2.bat .vcpkg ${{ matrix.arch }} .output/sdl2
-    - name: Get a list of files installed by vcpkg
+    - name: Get list of files installed by vcpkg
       if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       run: |
         ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
@@ -157,7 +157,7 @@ jobs:
         name: windows
         path: .output
         if-no-files-found: error
-    - name: Create a combined package
+    - name: Create combined package
       if: ${{ github.event_name == 'push' }}
       run: |
         cd .output
