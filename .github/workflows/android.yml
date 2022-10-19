@@ -51,7 +51,7 @@ jobs:
         (cd .android/obj/local && cp --parents -- */libSDL2.so ../../../.output/app/jni/SDL2/lib)
         cp -R .android/jni/SDL2/include .output/app/jni/SDL2
         cp android/SDL2/build.gradle .output/sdl2
-        cp -R .android/jni/SDL2/android-project/app/src/main/java .output/sdl2/src/main
+        cp -R android/SDL2/AndroidManifest.xml .android/jni/SDL2/android-project/app/src/main/java .output/sdl2/src/main
     - name: Create SDL2_mixer package
       run: |
         mkdir -p .output/app/jni/SDL2_mixer/lib
