@@ -1,7 +1,16 @@
 name: Android
 
 on:
-  workflow_call:
+  push:
+    branches: [ master ]
+    paths: [ '.github/workflows/android.yml', 'android/**' ]
+  pull_request:
+    branches: [ master ]
+    paths: [ '.github/workflows/android.yml', 'android/**' ]
+
+concurrency:
+  group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   SDL2_REPO: libsdl-org/SDL

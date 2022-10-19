@@ -1,7 +1,16 @@
 name: Windows
 
 on:
-  workflow_call:
+  push:
+    branches: [ master ]
+    paths: [ '.github/workflows/windows.yml', 'windows/**' ]
+  pull_request:
+    branches: [ master ]
+    paths: [ '.github/workflows/windows.yml', 'windows/**' ]
+
+concurrency:
+  group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   VCPKG_REPO: microsoft/vcpkg
