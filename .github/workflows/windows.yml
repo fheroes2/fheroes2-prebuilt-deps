@@ -176,7 +176,7 @@ jobs:
       with:
         artifacts: .output/windows.zip
         body: |
-          `windows.zip` contains header files and libraries built in release and debug mode, as well as their `PDB` files
+          `windows.zip` contains header files and libraries built in release and debug mode, as well as their PDB files
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Pre-built dependency package for building fheroes2 for Windows
         tag: windows-deps

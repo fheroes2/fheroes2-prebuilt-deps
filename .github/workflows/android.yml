@@ -74,7 +74,7 @@ jobs:
       with:
         artifacts: .output/android.zip
         body: |
-          `android.zip` contains java libraries and JNI modules
+          `android.zip` contains Java libraries and JNI modules that include header files and binary libraries
         token: ${{ secrets.GITHUB_TOKEN }}
         name: Pre-built dependency package for building fheroes2 for Android
         tag: android-deps
