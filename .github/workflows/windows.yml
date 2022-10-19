@@ -17,14 +17,14 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Create a package directory
       run: |
         mkdir -p .output/sdl1_core
     - name: Download binary packages
       run: |
         windows/sdl1_core.bat .output/sdl1_core
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: sdl1-core
         path: .output/sdl1_core
@@ -40,7 +40,7 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Create a package directory
       run: |
         mkdir -p .output/sdl1_deps
@@ -67,12 +67,12 @@ jobs:
       if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       run: |
         ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       with:
         name: sdl1-deps-${{ matrix.arch }}-vcpkg-installed-files
         path: .vcpkg/installed_files.txt
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: sdl1-deps-${{ matrix.arch }}
         path: .output/sdl1_deps
@@ -88,7 +88,7 @@ jobs:
       run:
         shell: bash
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Create a package directory
       run: |
         mkdir -p .output/sdl2
@@ -115,12 +115,12 @@ jobs:
       if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       run: |
         ls -lR .vcpkg/installed > .vcpkg/installed_files.txt
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: ${{ github.event_name == 'pull_request' && ( success() || failure() ) }}
       with:
         name: sdl2-${{ matrix.arch }}-vcpkg-installed-files
         path: .vcpkg/installed_files.txt
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: sdl2-${{ matrix.arch }}
         path: .output/sdl2
@@ -131,27 +131,27 @@ jobs:
     timeout-minutes: 10
     needs: [sdl1-core, sdl1-deps, sdl2]
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: sdl1-core
         path: .output/sdl1
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: sdl1-deps-x86
         path: .output/sdl1
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: sdl1-deps-x64
         path: .output/sdl1
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: sdl2-x86
         path: .output/sdl2
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: sdl2-x64
         path: .output/sdl2
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: ${{ github.event_name == 'pull_request' }}
       with:
         name: windows
