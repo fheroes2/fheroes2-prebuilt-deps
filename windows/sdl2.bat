@@ -9,7 +9,7 @@ set VCPKG_DIR=%~1
 set PLATFORM=%~2
 set OUTPUT_DIR=%~3
 
-set TRIPLET=%PLATFORM%-windows-v140
+set TRIPLET=%PLATFORM%-windows-v141_xp
 
 echo Adding triplets...
 
