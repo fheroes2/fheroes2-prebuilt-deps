@@ -55,8 +55,8 @@ jobs:
         mkdir -p .output/sdl1_deps
     - name: Install MSVC WinXP toolset
       run: |
-        "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" modify --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise" --add Microsoft.VisualStudio.Component.WinXP --quiet --norestart --nocache
-      shell: cmd
+        Start-Process -Verb RunAs -FilePath "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" -ArgumentList @("modify", "--installPath", "`"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community`"", "--add", "Microsoft.VisualStudio.Component.WinXP", "--quiet", "--norestart", "--nocache")
+      shell: pwsh
     - name: Prepare vcpkg cache
       uses: actions/cache@v3
       with:
@@ -107,8 +107,8 @@ jobs:
         mkdir -p .output/sdl2
     - name: Install MSVC WinXP toolset
       run: |
-        "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" modify --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise" --add Microsoft.VisualStudio.Component.WinXP --quiet --norestart --nocache
-      shell: cmd
+        Start-Process -Verb RunAs -FilePath "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" -ArgumentList @("modify", "--installPath", "`"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community`"", "--add", "Microsoft.VisualStudio.Component.WinXP", "--quiet", "--norestart", "--nocache")
+      shell: pwsh
     - name: Prepare vcpkg cache
       uses: actions/cache@v3
       with:
