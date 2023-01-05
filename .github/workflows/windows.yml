@@ -114,9 +114,6 @@ jobs:
         repository: ${{ env.VCPKG_REPO }}
         ref: ${{ env.VCPKG_REF }}
         path: .vcpkg
-    - name: Apply patches
-      run: |
-        for PATCH in windows/vcpkg_patches/*.patch; do [[ -f "$PATCH" ]] && patch -p1 -d .vcpkg < "$PATCH"; done
     - name: Bootstrap vcpkg
       run: |
         .vcpkg/bootstrap-vcpkg.bat
