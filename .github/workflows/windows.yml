@@ -66,6 +66,13 @@ jobs:
         repository: ${{ env.VCPKG_REPO }}
         ref: ${{ env.VCPKG_REF }}
         path: .vcpkg
+    - name: Apply vcpkg patches
+      run: |
+        for PATCH in windows/vcpkg_patches/*.patch; do
+            if [[ -f "$PATCH" ]]; then
+                patch -p1 -d .vcpkg < "$PATCH"
+            fi
+        done
     - name: Bootstrap vcpkg
       run: |
         .vcpkg/bootstrap-vcpkg.bat
@@ -114,6 +121,13 @@ jobs:
         repository: ${{ env.VCPKG_REPO }}
         ref: ${{ env.VCPKG_REF }}
         path: .vcpkg
+    - name: Apply vcpkg patches
+      run: |
+        for PATCH in windows/vcpkg_patches/*.patch; do
+            if [[ -f "$PATCH" ]]; then
+                patch -p1 -d .vcpkg < "$PATCH"
+            fi
+        done
     - name: Bootstrap vcpkg
       run: |
         .vcpkg/bootstrap-vcpkg.bat
