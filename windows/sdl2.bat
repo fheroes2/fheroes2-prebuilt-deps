@@ -40,6 +40,7 @@ call :copy_dll "intl*"          && ^
 call :copy_dll "libffi*"        && ^
 call :copy_dll "libfluidsynth*" && ^
 call :copy_dll "libmp3lame*"    && ^
+call :copy_dll "libpng*"        && ^
 call :copy_dll "mpg123*"        && ^
 call :copy_dll "ogg*"           && ^
 call :copy_dll "opus*"          && ^
