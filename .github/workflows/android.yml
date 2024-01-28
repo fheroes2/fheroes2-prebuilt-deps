@@ -12,6 +12,9 @@ concurrency:
   group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 env:
   SDL2_REPO: libsdl-org/SDL
   SDL2_REF: release-2.28.5

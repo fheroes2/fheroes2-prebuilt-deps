@@ -12,6 +12,9 @@ concurrency:
   group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 env:
   VCPKG_REPO: microsoft/vcpkg
   # 09.01.2024
