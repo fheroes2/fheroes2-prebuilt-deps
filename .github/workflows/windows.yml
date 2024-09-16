@@ -99,6 +99,7 @@ jobs:
         name: windows
         path: .output
         if-no-files-found: error
+        include-hidden-files: true
     - name: Create package archive
       if: ${{ github.event_name == 'push' }}
       run: |
