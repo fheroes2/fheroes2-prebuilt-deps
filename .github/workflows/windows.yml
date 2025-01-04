@@ -17,8 +17,8 @@ permissions:
 
 env:
   VCPKG_REPO: microsoft/vcpkg
-  # 01.01.2025
-  VCPKG_REF: 4b6c50d962cc20aaa3ef457f8ba683b586263cfb
+  # 04.01.2025
+  VCPKG_REF: 65be7019941e1401e02daaba0738cab2c8a4a355
 
 jobs:
   sdl2:
