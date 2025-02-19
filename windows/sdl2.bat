@@ -9,12 +9,7 @@ set VCPKG_DIR=%~1
 set PLATFORM=%~2
 set OUTPUT_DIR=%~3
 
-set TRIPLET=%PLATFORM%-windows-v140
-
-echo Adding triplets...
-
-xcopy /Y /Q "%~dp0\vcpkg_triplets\*.cmake" "%VCPKG_DIR%\triplets\community\" || ^
-exit /B 1
+set TRIPLET=%PLATFORM%-windows
 
 echo Building sdl2 and dependencies...
 
