@@ -24,26 +24,26 @@ if not exist "%OUTPUT_DIR%\lib\debug\%PLATFORM%" ( mkdir "%OUTPUT_DIR%\lib\debug
 
 echo Copying files...
 
-call :copy_dll "FLAC*"          && ^
-call :copy_dll "gio*"           && ^
-call :copy_dll "glib*"          && ^
-call :copy_dll "gmodule*"       && ^
-call :copy_dll "gobject*"       && ^
-call :copy_dll "gthread*"       && ^
-call :copy_dll "iconv*"         && ^
-call :copy_dll "intl*"          && ^
-call :copy_dll "ffi*"           && ^
-call :copy_dll "libfluidsynth*" && ^
-call :copy_dll "libmp3lame*"    && ^
-call :copy_dll "mpg123*"        && ^
-call :copy_dll "ogg*"           && ^
-call :copy_dll "opus*"          && ^
-call :copy_dll "pcre*"          && ^
-call :copy_dll "SDL2*"          && ^
-call :copy_dll "sndfile*"       && ^
-call :copy_dll "vorbis*"        && ^
-call :copy_dll "wavpack*"       && ^
-call :copy_dll "zlib*"          || ^
+call :copy_dll "FLAC*"       && ^
+call :copy_dll "gio*"        && ^
+call :copy_dll "glib*"       && ^
+call :copy_dll "gmodule*"    && ^
+call :copy_dll "gobject*"    && ^
+call :copy_dll "gthread*"    && ^
+call :copy_dll "iconv*"      && ^
+call :copy_dll "intl*"       && ^
+call :copy_dll "ffi*"        && ^
+call :copy_dll "fluidsynth*" && ^
+call :copy_dll "libmp3lame*" && ^
+call :copy_dll "mpg123*"     && ^
+call :copy_dll "ogg*"        && ^
+call :copy_dll "opus*"       && ^
+call :copy_dll "pcre*"       && ^
+call :copy_dll "SDL2*"       && ^
+call :copy_dll "sndfile*"    && ^
+call :copy_dll "vorbis*"     && ^
+call :copy_dll "wavpack*"    && ^
+call :copy_dll "zlib*"       || ^
 exit /B 1
 
 xcopy /Y /Q "%VCPKG_DIR%\installed\%TRIPLET%\debug\lib\SDL2*.lib"             "%OUTPUT_DIR%\lib\debug\%PLATFORM%" && ^
