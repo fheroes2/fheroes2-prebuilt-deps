@@ -20,7 +20,7 @@ env:
   SDL2_REF: release-2.32.4
   #
   SDL2_MIXER_REPO: libsdl-org/SDL_mixer
-  SDL2_MIXER_REF: release-2.8.0
+  SDL2_MIXER_REF: release-2.8.1
 
 jobs:
   android:
