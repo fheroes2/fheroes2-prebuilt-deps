@@ -24,14 +24,13 @@ if not exist "%OUTPUT_DIR%\lib\debug\%PLATFORM%" ( mkdir "%OUTPUT_DIR%\lib\debug
 
 echo Copying files...
 
-call :copy_dll "FLAC*"    && ^
-call :copy_dll "mpg123*"  && ^
-call :copy_dll "ogg*"     && ^
-call :copy_dll "opus*"    && ^
-call :copy_dll "SDL2*"    && ^
-call :copy_dll "vorbis*"  && ^
-call :copy_dll "wavpack*" && ^
-call :copy_dll "zlib*"    || ^
+call :copy_dll "FLAC*"   && ^
+call :copy_dll "mpg123*" && ^
+call :copy_dll "ogg*"    && ^
+call :copy_dll "opus*"   && ^
+call :copy_dll "SDL2*"   && ^
+call :copy_dll "vorbis*" && ^
+call :copy_dll "zlib*"   || ^
 exit /B 1
 
 xcopy /Y /Q "%VCPKG_DIR%\installed\%TRIPLET%\debug\lib\SDL2*.lib"             "%OUTPUT_DIR%\lib\debug\%PLATFORM%" && ^
